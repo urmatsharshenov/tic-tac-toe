@@ -5,12 +5,6 @@ import java.util.List;
 import common.model.GameBoard;
 import common.model.Turn;
 
-/**
- * Classe modele du Morpion
- * @see GameBoard.java
- * @author LETOURNEUR Léo
- *
- */
 public class TicTacToe extends GameBoard {
 	private static final long serialVersionUID = -2476801123377458868L;
 

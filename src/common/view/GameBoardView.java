@@ -19,12 +19,7 @@ import javax.swing.border.EmptyBorder;
 import common.model.GameBoard;
 import common.model.GameBoard.Cell;
 
-/**
- * Classe vue generale des 3 jeux
- * 
- * @author LETOURNEUR Léo
- *
- */
+
 public class GameBoardView extends JDialog implements Observer {
 	private static final long serialVersionUID = 7569627007177996281L;
 
@@ -40,10 +35,7 @@ public class GameBoardView extends JDialog implements Observer {
 	public ImageIcon iconNext2;
 
 	public JToolBar menuBar;
-	public JButton resetButton;
 	public JButton undoButton;
-	public JButton loadButton;
-	public JButton saveButton;
 	public JButton exitButton;
 	public JCheckBox aloneCheck;
 
@@ -163,24 +155,15 @@ public class GameBoardView extends JDialog implements Observer {
 		exitButton.setForeground(Color.red);
 		menuBar.addSeparator();
 		menuBar.add(exitButton);
-		
-		resetButton = new JButton("Replay");
-		menuBar.addSeparator();
-		menuBar.add(resetButton);
 
-		loadButton = new JButton("Load game");
-		menuBar.addSeparator();
-		menuBar.add(loadButton);
-
-		saveButton = new JButton("Save game");
-		menuBar.addSeparator();
-		menuBar.add(saveButton);
 
 		menuBar.add(Box.createHorizontalGlue());
 
 		aloneCheck = new JCheckBox("Alone");
+		aloneCheck.setForeground(Color.green);
 		menuBar.add(aloneCheck);
 		undoButton = new JButton("Undo");
+		undoButton.setForeground(Color.blue);
 		menuBar.add(undoButton);
 		menuBar.addSeparator();
 	}

@@ -11,12 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 
-/**
- * Classe modele generale des 3 jeux
- * 
- * @author LETOURNEUR Léo
- *
- */
+
 public class GameBoard extends Observable implements Serializable {
 	private static final long serialVersionUID = 575263890429289200L;
 	
@@ -25,7 +20,7 @@ public class GameBoard extends Observable implements Serializable {
 	
 	//Les joueurs sont géres grâce à une énumération
 	public static enum Cell { 
-		EMPTY(" ","   ",0), PLAYER1("X","RED",1), PLAYER2("O","BLU",2);
+		EMPTY(" ","   ",0), PLAYER1("X","RED",1), PLAYER2("O","BLUE",2);
 		public final String pictogram;
 		public final String color;
 		public final int value;

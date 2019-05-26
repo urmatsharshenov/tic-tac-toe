@@ -5,12 +5,7 @@ import java.awt.Color;
 import common.model.GameBoard;
 import common.view.GameBoardView;
 
-/**
- * Classe vue du Morpion
- * @see GameBoardView.java
- * @author LETOURNEUR Léo
- *
- */
+
 public class TicTacToeView extends GameBoardView {
 	private static final long serialVersionUID = 4727415632038426947L;
 

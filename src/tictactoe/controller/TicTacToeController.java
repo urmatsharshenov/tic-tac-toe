@@ -11,12 +11,6 @@ import common.model.Position;
 import common.model.Random;
 import common.model.GameBoard.Cell;
 
-/**
- * Classe controleur du Morpion
- * @see GameBoardController.java
- * @author LETOURNEUR Léo
- *
- */
 public class TicTacToeController extends GameBoardController{
 	
 	public TicTacToeController(TicTacToe modele, TicTacToeView vue) {
@@ -55,9 +49,8 @@ public class TicTacToeController extends GameBoardController{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == vue.undoButton || e.getSource() == vue.exitButton 
-		 || e.getSource() == vue.resetButton || e.getSource() == vue.loadButton
-		 || e.getSource() == vue.saveButton) {
+		if (e.getSource() == vue.undoButton || e.getSource() == vue.exitButton)
+		  {
 			
 			super.actionPerformed(e);
 		}

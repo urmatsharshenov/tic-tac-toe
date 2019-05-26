@@ -15,12 +15,7 @@ import common.model.Turn;
 import common.model.GameBoard.Cell;
 import common.view.GameBoardView;
 
-/**
- * Cette classe definie le l'interaction entre interface/utilisateur et la logique de jeu.
- * 
- * @author LETOURNEUR Léo
- *
- */
+
 public class GameBoardController implements ActionListener {
 
 	protected GameBoard modele;
@@ -35,19 +30,10 @@ public class GameBoardController implements ActionListener {
 		this.vue = vue;
 
 		this.vue.undoButton.addActionListener(this);
-		this.vue.resetButton.addActionListener(this);
-		this.vue.loadButton.addActionListener(this);
-		this.vue.saveButton.addActionListener(this);
 		this.vue.exitButton.addActionListener(this);
 
 	}
 
-	/**
-	 * Methode qui verifie la victoire
-	 * 
-	 * @param Tableau de case à verifier et joueur.
-	 * @return true si toute les cases = joueur, false sinon
-	 */
 	public boolean checkWin(Position[] cases, int player) {
 		int compteur = 0;
 		Position potentialPosition = new Position(0,0);
@@ -88,10 +74,7 @@ public class GameBoardController implements ActionListener {
 		return false;
 	}
 
-	/**
-	 * Methode qui envoie la verification des lignes dans le checkwin()
-	 * 
-	 */
+
 	public void checkLine(int line, int player) {
 		int nbCases = modele.getNbCasesGagnante();
 		Position[] cases = new Position[nbCases];
@@ -105,10 +88,7 @@ public class GameBoardController implements ActionListener {
 		}
 	}
 
-	/**
-	 * Methode qui envoie la verification des colonnes dans le checkwin()
-	 * 
-	 */
+
 	public void checkColumn(int col, int player) {
 		int nbCases = modele.getNbCasesGagnante();
 		Position[] cases = new Position[nbCases];
@@ -122,10 +102,7 @@ public class GameBoardController implements ActionListener {
 		}
 	}
 
-	/**
-	 * Methode qui envoie la verification des diagonales vers le bas dans le checkwin()
-	 * 
-	 */
+
 	public void checkDiagonalToBottom(int line, int column, int player) {
 
 		int recule = line;
@@ -162,10 +139,7 @@ public class GameBoardController implements ActionListener {
 		}
 	}
 
-	/**
-	 * Methode qui envoie la verification des diagonales vers le haut dans le checkwin()
-	 * 
-	 */
+
 	public void checkDiagonalToTop(int line, int column, int player) {
 
 		int recule = modele.WIDTH - 1 - line;
@@ -200,10 +174,7 @@ public class GameBoardController implements ActionListener {
 		}
 	}
 
-	/**
-	 * Methode qui reinitialise le modele
-	 * 
-	 */
+
 	private void resetModel()
 	{
 		modele.setFin(false);
@@ -216,12 +187,7 @@ public class GameBoardController implements ActionListener {
 		vue.resetGrid();
 	}
 	
-	/**
-	 * Methode qui joue sur la grille pour le joueur
-	 * 
-	 * @param Position de la case (int x, int y)
-	 * @return true si la position est possible, false sinon
-	 */
+
 	public boolean play(int row, int col)
 	{
 		if(!modele.isFin() 
@@ -249,7 +215,7 @@ public class GameBoardController implements ActionListener {
 			if (modele.getHistory().size() == modele.LENGTH * modele.WIDTH && !modele.isFin())
 			{
 				vue.undoButton.setEnabled(false);
-				JOptionPane.showMessageDialog(vue, "Tie !", "End", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(vue, "There is no winner!", "End", JOptionPane.OK_OPTION);
 				modele.setFin(true);
 				if(!vue.aloneCheck.isSelected())
 					modele.setPreviousFirstPlayer(modele.getHistory().get(0).getPlayer());
@@ -260,10 +226,7 @@ public class GameBoardController implements ActionListener {
 		return false;
 	}
 
-	/**
-	 * Methode qui joue sur la grille aleatoirement pour l'ordinateur
-	 * 
-	 */
+
 	public void computerPlay() {}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -288,59 +251,6 @@ public class GameBoardController implements ActionListener {
 				modele.cancel();
 			}
 			
-		} 
-		else if (e.getSource() == vue.loadButton)
-		{
-			if (modele.isFin() || JOptionPane.showConfirmDialog(vue, 
-				"Would you like to cancel this game to replay ?", "Cancel",
-				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-			{
-				resetModel();
-				modele.setHistory(GameBoard.deserializeHistory(modele.getNomJeu()));
-				
-				if (modele.getHistory().isEmpty())
-				{
-					JOptionPane.showMessageDialog(vue, "No saved game");
-					return;
-				}
-				
-				vue.resetGrid();
-				
-				for (int i = 0; i < modele.getHistory().size(); i++) {
-					Position currentPos = modele.getHistory().get(i).getPosition();
-					if (modele.getHistory().get(i).getPlayer() == Cell.PLAYER1.value)
-					{
-						vue.casesLabel[currentPos.getX()][currentPos.getY()].setIcon(vue.iconJoueur1);
-						modele.getBoard()[currentPos.getX()][currentPos.getY()] = Cell.PLAYER1.value;
-					}
-					else
-					{
-						vue.casesLabel[currentPos.getX()][currentPos.getY()].setIcon(vue.iconJoueur2);
-						modele.getBoard()[currentPos.getX()][currentPos.getY()] = Cell.PLAYER2.value;
-					}
-				}
-			}
-		} else if (e.getSource() == vue.resetButton)
-		{
-			if (modele.isFin() || JOptionPane.showConfirmDialog(vue, 
-				"Would you like to cancel this game to replay ?", "Cancel",
-				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) 
-			{	
-				resetModel();
-			}
-		}
-		else if (e.getSource() == vue.saveButton)
-		{
-			if(!modele.isFin())
-			{
-				boolean saved = GameBoard.serializeHistory(modele.getHistory(), modele.getNomJeu());
-				if(saved)
-					JOptionPane.showMessageDialog(vue, "Game saved !");
-				else
-					JOptionPane.showMessageDialog(vue, "Error during backup");
-			}
-			else
-				JOptionPane.showMessageDialog(vue, "Can't save a completed game");
 		}
 		else if (e.getSource() == vue.exitButton) {
 			Score.serializeScore(modele.getScore());
